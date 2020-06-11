@@ -1,38 +1,36 @@
 Name:           lv2-mdaPiano
-Version:        
+Version:        0.0.2
 Release:        1%{?dist}
-Summary:        
+Summary:        A port of the MDA Piano VST plugin to LV2
 
-License:        
-URL:            
-Source0:        
+License:        GPLv3+
+URL:            https://elephly.net/lv2/mdapiano
+Source0:        https://git.elephly.net/software/lv2-mdametapiano.git/archive/%{version}.tar.gz
 
-BuildRequires:  
-Requires:       
+BuildRequires:  gcc-c++
+BuildRequires:  lv2-devel
+BuildRequires:  lv2-c++-tools-static
+BuildRequires:  /usr/bin/ttl2c
+BuildRequires:  lvtk-devel < 2
 
 %description
-
+A port of the popular MDA Piano VST plugin to LV2.
 
 %prep
-%autosetup
-
+%autosetup -n lv2-mdametapiano-%{version}-1a272c3
 
 %build
-%configure
-%make_build
-
+%make_build TYPE=mdaPiano
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%make_install
-
+%make_install TYPE=mdaPiano INSTALL_DIR=%{buildroot}%{_libdir}/lv2
 
 %files
-%license add-license-file-here
-%doc add-docs-here
-
-
+%license LICENSE
+%doc README.md
+%{_libdir}/lv2/lv2-mdaPiano.lv2
 
 %changelog
-* Fri Jun  5 2020 Mattias Ohlsson <mattias.ohlsson@inprose.com>
-- 
+* Thu Jun 11 2020 Mattias Ohlsson <mattias.ohlsson@inprose.com> - 0.0.2-1
+- Initial build
